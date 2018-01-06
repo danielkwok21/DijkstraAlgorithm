@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1515174729 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\main.cpp
+1515274804 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\main.cpp
 	"Algorithm.h"
 	"Node.h"
 	"Edge.h"
 	<iostream>
+	<limits>
 
 1515146961 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\include\node.h
 
@@ -14,25 +15,25 @@
 	"Edge.h"
 	<iostream>
 
-1515239611 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\node.h
+1515273135 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\node.h
 	<list>
 
-1515239456 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\edge.h
+1515270762 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\edge.h
 	"Node.h"
 
-1515239566 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\edge.cpp
+1515270778 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\edge.cpp
 	"Algorithm.h"
 	"Node.h"
 	"Edge.h"
 	<iostream>
 
-1515239643 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\node.cpp
+1515270978 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\node.cpp
 	"Algorithm.h"
 	"Node.h"
 	"Edge.h"
 	<iostream>
 
-1515239134 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\algorithm.cpp
+1515274668 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\algorithm.cpp
 	"Algorithm.h"
 	"Node.h"
 	"Edge.h"
@@ -40,8 +41,9 @@
 	<iostream>
 	<list>
 	<iterator>
+	<algorithm>
 
-1515237629 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\algorithm.h
+1515273135 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\algorithm.h
 	"string"
 	"Node.h"
 	"Edge.h"

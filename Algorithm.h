@@ -11,7 +11,7 @@ using namespace std;
 class Algorithm
 {
     public:
-        Algorithm(Node *n, int nl, Edge *e, int el, Node sn, Node en);
+        Algorithm(Node *n, int nl, Edge *e, int el, Node *sn, Node *en);
         void printPath(string tempPath);
 
         virtual ~Algorithm();
@@ -19,16 +19,19 @@ class Algorithm
     protected:
 
     private:
+        //functions
         list<Edge> getAvailableEdges(Node cn);
         void updateNodeWeight(Node n, int newWeight);
-        Node* minWeightNode(Node cn, list<Edge> edges);
+        Node minWeightNode(Node cn, list<Edge> edges);
         string dijkstra();
+
+        //variables
         int nodelength;
         int edgelength;
         Node *nodesp;
         Edge *edgesp;
-        Node startNode;
-        Node endNode;
+        Node *startNode;
+        Node *endNode;
         bool visited;
 };
 

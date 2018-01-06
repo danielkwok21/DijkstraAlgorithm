@@ -4,7 +4,7 @@
 using namespace std;
 #include <iostream>
 
-Edge::Edge(int w, Node sn, Node en)
+Edge::Edge(int w, Node *sn, Node *en)
 :weight(w), startNode(sn), endNode(en)
 {
 
@@ -15,26 +15,26 @@ int Edge::getWeight(){
 }
 
 //startNode
-Node Edge::getSN(){
+Node* Edge::getSN(){
     return startNode;
 }
 
 //endNode
-Node Edge::getEN(){
+Node* Edge::getEN(){
     return endNode;
 }
 
 //adjacentNode
-Node Edge::getAN(Node n){
-    if(n.isEqual(startNode)){
+Node* Edge::getAN(Node n){
+    if(n.is(*startNode)){
         return endNode;
     }
     return startNode;
 }
 
-bool Edge::isEqual(Edge e){
-    bool equalStartNodes = this->getSN().isEqual(e.getSN());
-    bool equalEndNodes = this->getEN().isEqual(e.getEN());
+bool Edge::is(Edge e){
+    bool equalStartNodes = getSN()->is(*e.getSN());
+    bool equalEndNodes = getEN()->is(*e.getEN());
 
     return equalStartNodes && equalEndNodes;
 }

@@ -4,7 +4,7 @@
 class Node
 {
     public:
-        Node(char name, int weight);
+        Node(char name);
         char getName();
         int getWeight();
         void setWeight(int newWeight);
@@ -12,14 +12,14 @@ class Node
         list<Node> getAvailableNodes(Node n);
         bool visited();
         void setVisited();
-        bool isEqual(Node n);
+        void printDetails();
         virtual ~Node();
     protected:
 
     private:
         char name;
-        int weight;
-        bool wasVisited;
+        int weight = 2147483647;
+        bool wasVisited = false;
 };
 
 #endif // NODE_H
