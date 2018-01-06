@@ -1,0 +1,50 @@
+# depslib dependency file v1.0
+1515174729 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\main.cpp
+	"Algorithm.h"
+	"Node.h"
+	"Edge.h"
+	<iostream>
+
+1515146961 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\include\node.h
+
+1515145812 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\include\edge.h
+
+1515146904 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\src\edge.cpp
+	"Node.h"
+	"Edge.h"
+	<iostream>
+
+1515239611 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\node.h
+	<list>
+
+1515239456 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\edge.h
+	"Node.h"
+
+1515239566 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\edge.cpp
+	"Algorithm.h"
+	"Node.h"
+	"Edge.h"
+	<iostream>
+
+1515239643 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\node.cpp
+	"Algorithm.h"
+	"Node.h"
+	"Edge.h"
+	<iostream>
+
+1515239134 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\algorithm.cpp
+	"Algorithm.h"
+	"Node.h"
+	"Edge.h"
+	"string"
+	<iostream>
+	<list>
+	<iterator>
+
+1515237629 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\algorithm.h
+	"string"
+	"Node.h"
+	"Edge.h"
+	<list>
+	<iterator>
+
