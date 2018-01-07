@@ -27,7 +27,9 @@ bool Node::is(Node n){
 }
 
 void Node::printDetails(){
-    cout<<"Node:"<<name<<"|"<<"Weight:"<<weight<<"|"<<"Visited:"<<wasVisited<<endl;
+    cout<<"Node:"<<name<<"|Weight:"<<weight<<"|"<<"|Visited:"<<wasVisited<<"Updated by:"<<updatedBy<<endl;
+    //cout<<"Node:"<<name<<"|"<<"Weight:"<<weight<<"|"<<"Visited:"<<wasVisited<<endl;
+
 }
 
 bool Node::visited(){
@@ -36,6 +38,13 @@ bool Node::visited(){
 
 void Node::setVisited(){
     wasVisited = true;
+}
+
+char Node::getUpdatedBy(){
+    return updatedBy;
+}
+void Node::setUpdatedBy(Node n){
+    updatedBy = n.getName();
 }
 
 Node::~Node()

@@ -4,15 +4,12 @@
 using namespace std;
 #include "string"
 #include <iostream>
+#include <queue>
 #include <list>
 #include <iterator>
 #include <algorithm>
 
 //function declarations
-list<Edge> getAvailableEdges(Node cn);
-Edge minWeightEdge(list<Edge> edges);
-void updateNodeWeight(Node n, int newWeight);
-bool visited(Node n);
 
 //global variable declaration
 list<Node> visitedNodes;
@@ -24,52 +21,120 @@ Algorithm::Algorithm(Node *n, int nl, Edge *e, int el, Node *sn, Node *en)
     startNode->setVisited();
     startNode->printDetails();
     string path = dijkstra();
+    cout<<"Final answer: "<<path<<endl;
 }
+
+
 
 string Algorithm::dijkstra(){
     string path="";
-    Node *currentNode = startNode;
-    currentNode->printDetails();
-    startNode->printDetails();
+    Node currentNode = *startNode;
+    list<Edge> incidentEdges;
 
-    while(!(*currentNode).is(*endNode)){
-        list<Edge> neightbourEdges = getAvailableEdges(*currentNode);
+    do{
+        cout<<"\n\nnew round"<<endl;
+        cout<<"currentNode:"<<currentNode.getName()<<endl;
+        incidentEdges = getAvailableEdges(currentNode);
+        updateAdjacentNodes(currentNode, incidentEdges);
 
-        Node chosenNode = minWeightNode(*currentNode, neightbourEdges);
-        currentNode = &chosenNode;
-        visitedNodes.push_back(*currentNode);
+        priorityList.sort([](Node &n1, Node &n2){
+			if(!(n1.getWeight() > n2.getWeight())){
+                return n1.getWeight() < n2.getWeight();
+                }
+        });
+        printPriorityList();
 
-        updateNodeWeight(*currentNode, chosenNode.getWeight());
-        currentNode->printDetails();
+        currentNode = priorityList.front();
+        cout<<"new currentNode: "<<endl;
+        currentNode.printDetails();
+        priorityList.pop_front();
+        printPriorityList();
+        printNodes();
+    }while(!priorityList.empty());
+/*
+    char n = endNode.getName();
+    while(n!=startNode.getName()){
+        path.append(n);
+        n =
+
     }
+   */
+    path = getSolution();
+
     return path;
 }
-sortByWeight(Node n1, Node n2){
-    return n1.getWeight()<n2.getWeight();
+
+string Algorithm::getSolution(){
+    string sol;
+    Node n = *endNode;
+    do{
+        cout<<"n.getName(): "<<n.getName()<<endl;
+        string thisNode(1, n.getName());
+        sol.append(thisNode);
+        string prevNode(1, n.getUpdatedBy());
+        //sol.append(prevNode);
+        for(int i=0;i<nodelength; i++){
+            if((*(nodesp-i)).getName()==n.getUpdatedBy()){
+                n = *(nodesp-i);
+            }
+        }
+
+        sol.append("|");
+    }while(!n.is(*startNode));
+    string firstNode(1, (*startNode).getName());
+    sol.append(firstNode);
+
+    return sol;
 }
 
-Node Algorithm::minWeightNode(Node cn, list<Edge> edges){
+void Algorithm::printNodes(){
+    cout<<"All nodes:"<<endl;
+    for(int i=0; i<nodelength; i++){
+        (nodesp-i)->printDetails();
+    }
+}
 
-    list<Node> updatedNodes;
+
+void Algorithm::printPriorityList(){
+//look at priorityList's content
+    std::list<Node>::iterator n;
+    cout<<"priorityList:"<<endl;
+    for(n=priorityList.begin(); n!=priorityList.end(); n++){
+        (*n).printDetails();
+    }
+}
+
+sortByWeight(Node *n1, Node *n2){
+    return n1->getWeight()<n2->getWeight();
+}
+
+void Algorithm::updateAdjacentNodes(Node cn, list<Edge> edges){
+    cout<<"Available Nodes:"<<endl;
+
     std::list<Edge>::iterator i;
     for(i=edges.begin(); i!=edges.end();i++){
-            cout<<"cn.getWeight:"<<cn.getWeight()<<endl;
-            cout<<"(*i).getWeight():"<<(*i).getWeight()<<endl;
+            //cout<<"current node:"<<endl;
+            cn.printDetails();
+            //cout<<"this edge.getWeight():"<<(*i).getWeight()<<endl;
         int potentialWeight = cn.getWeight()+(*i).getWeight();
         Node *potentialNode = (*i).getAN(cn);
-            cout<<"potentialNode.getName(): "<<potentialNode->getName()<<endl;
-            cout<<"potentialNode.getWeight(): "<<potentialNode->getWeight()<<endl;
-            cout<<"potentialWeight: "<<potentialWeight<<endl;
+            //cout<<"potentialNode.getName(): "<<potentialNode->getName()<<endl;
+            //cout<<"potentialNode.getWeight(): "<<potentialNode->getWeight()<<endl;
+            //cout<<"potentialWeight: "<<potentialWeight<<endl;
 
         if(potentialNode->getWeight()>potentialWeight){
             potentialNode->setWeight(potentialWeight);
-            updatedNodes.push_back(*potentialNode);
+            potentialNode->setVisited();
+            potentialNode->setUpdatedBy(cn);
+            priorityList.push_back(*potentialNode);
         }
     }
+}
 
-    Node minWeightNode = updatedNodes.front();
+Node Algorithm::minWeightNode(list<Node> nodes){
+    Node minWeightNode = nodes.front();
     std::list<Node>::iterator j;
-    for(j=updatedNodes.begin(); j!=updatedNodes.end();j++){
+    for(j=nodes.begin(); j!=nodes.end();j++){
         if((*j).getWeight()<minWeightNode.getWeight()){
             minWeightNode = (*j);
         }
@@ -78,33 +143,25 @@ Node Algorithm::minWeightNode(Node cn, list<Edge> edges){
     return minWeightNode;
 }
 
-void Algorithm::updateNodeWeight(Node n, int newWeight){
-    if(n.getWeight()==-1 || n.getWeight()<newWeight){
-        n.setWeight(newWeight);
-        n.setVisited();
-    }
-    cout<<"\n"<<n.getName()<<": "<<n.getWeight()<<endl;
-}
-
 list<Edge> Algorithm::getAvailableEdges(Node cn){
-    cout<<"inside getAvailableEdges"<<endl;
+    cout<<"Available Edges:"<<endl;
+
+    cout<<"current node:"<<endl;
+    cn.printDetails();
     list<Edge> availableEdges;
     for(int i=0; i<edgelength; i++){
         Edge currentEdge = (*(edgesp-i));
-        if(currentEdge.getSN()->is(cn)){
-            currentEdge.getEN()->printDetails();
-            if(!(currentEdge.getEN()->visited())){
-                availableEdges.push_back(currentEdge);
-            }
-        }
-        if(currentEdge.getEN()->is(cn)){
-            currentEdge.getSN()->printDetails();
-            if(!(currentEdge.getSN()->visited())){
-                availableEdges.push_back(currentEdge);
-            }
+
+        if(currentEdge.getSN()->is(cn)||currentEdge.getEN()->is(cn)){
+           // cout<<"hit"<<endl;
+            //cout<<"currentEdge.getSN().name:"<<currentEdge.getSN()->getName()<<endl;
+            //cout<<"currentEdge.getEN().name:"<<currentEdge.getEN()->getName()<<endl;
+            availableEdges.push_back(currentEdge);
+
         }
     }
     std::list<Edge>::iterator i;
+    cout<<"availableEdges:"<<endl;
     for(i=availableEdges.begin(); i!=availableEdges.end();i++){
         cout<<(*i).getWeight()<<"|";
     }

@@ -21,11 +21,16 @@ class Algorithm
     private:
         //functions
         list<Edge> getAvailableEdges(Node cn);
+        void updateAdjacentNodes(Node cn, list<Edge> edges);
         void updateNodeWeight(Node n, int newWeight);
-        Node minWeightNode(Node cn, list<Edge> edges);
+        Node minWeightNode(list<Node> nodes);
         string dijkstra();
+        void printPriorityList();
+        void printNodes();
+        string getSolution();
 
         //variables
+        list<Node> priorityList;
         int nodelength;
         int edgelength;
         Node *nodesp;

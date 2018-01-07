@@ -32,6 +32,15 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Algorithm.cpp" />
+		<Unit filename="Algorithm.h" />
+		<Unit filename="Dijkstra.cbp" />
+		<Unit filename="Dijkstra.depend" />
+		<Unit filename="Dijkstra.layout" />
+		<Unit filename="Edge.cpp" />
+		<Unit filename="Edge.h" />
+		<Unit filename="Node.cpp" />
+		<Unit filename="Node.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
