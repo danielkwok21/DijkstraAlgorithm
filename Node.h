@@ -5,24 +5,23 @@
 class Node
 {
     public:
-        Node();
         Node(char n);
-        Node(char n, int w, char u);
+        Node(char n, int w);
         char getName() const;
-        int getWeight();
+        int getWeight() const;
         void setWeight(int newWeight);
         bool is(Node n);
-        list<Node> getAvailableNodes(Node n);
-        bool visited();
+        bool getVisited();
         void setVisited();
         void printDetails();
         char getUpdatedBy();
         void setUpdatedBy(Node n);
 
+        //override operator==
         bool operator==(const Node *other)const{
             return getName() == other->getName();
         }
-
+        //override operator!=
         bool operator!=(const Node *other)const{
             return getName() != other->getName();
         }

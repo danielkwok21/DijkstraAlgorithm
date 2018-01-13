@@ -7,7 +7,8 @@ using namespace std;
 
 int main()
 {
-    Node Nought('-', 0, '-');
+    //all nodes
+    Node Nought('-', 0);
     Node A('A');
     Node B('B');
     Node C('C');
@@ -18,23 +19,17 @@ int main()
     Node H('H');
     Node I('I');
     Node *nodes[] = {&Nought, &A, &B, &C, &D, &E, &F, &G, &H, &I};
-    cout<<"Nought arrd:"<<&Nought<<endl;
-    cout<<"A addr:"<<&A<<endl;
-    cout<<"B addr:"<<&B<<endl;
-    cout<<"C addr:"<<&C<<endl;
-    cout<<"D addr:"<<&D<<endl;
-    cout<<"E addr:"<<&E<<endl;
-    cout<<"F addr:"<<&F<<endl;
-    cout<<"G addr:"<<&G<<endl;
-    cout<<"H addr:"<<&H<<endl;
-    cout<<"I addr:"<<&I<<endl;
 
     Node *nodesp = *nodes;
     int nodeslength = sizeof(nodes)/sizeof(nodes[0]);
     Node *noughtp = &Nought;
+
+    //here to customize start and end node
+    //simply replace address
     Node *startNodep = &A;
     Node *endNodep = &I;
 
+    //all edges
     Edge e0(0, &Nought, startNodep);
     Edge e1(4, &A, &B);
     Edge e2(8, &B, &C);

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1515840412 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\main.cpp
+1515847333 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\main.cpp
 	"Algorithm.h"
 	"Node.h"
 	"Edge.h"
@@ -15,7 +15,7 @@
 	"Edge.h"
 	<iostream>
 
-1515830346 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\node.h
+1515847409 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\node.h
 	<list>
 
 1515270762 c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\edge.h
@@ -33,13 +33,12 @@
 	"Edge.h"
 	<iostream>
 
-1515839979 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\algorithm.cpp
+1515847333 source:c:\users\danie\onedrive - university of nottingham malaysia campus\daniel\se\code\c++\practice\dijkstra\algorithm.cpp
 	"Algorithm.h"
 	"Node.h"
 	"Edge.h"
 	"string"
 	<iostream>
-	<queue>
 	<list>
 	<iterator>
 	<algorithm>

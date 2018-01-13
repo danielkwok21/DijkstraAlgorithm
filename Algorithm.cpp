@@ -4,13 +4,22 @@
 using namespace std;
 #include "string"
 #include <iostream>
-#include <queue>
 #include <list>
 #include <iterator>
 #include <algorithm>
 
 //function declarations
 
+
+/**
+*constructor
+*@param *n,     pointer to nodes array
+*@param nl,     length of nodes array
+*@param *e,     pointer to edges array
+*@param el,     length of nodes array
+*@param *np,    pointer to nought node
+*@param *en,    pointer to end node
+*/
 Algorithm::Algorithm(Node *n, int nl, Edge *e, int el, Node *np, Node *en)
 :nodesp(n), nodelength(nl), edgesp(e), edgelength(el), nought(np), endNode(en)
 {
@@ -19,6 +28,12 @@ Algorithm::Algorithm(Node *n, int nl, Edge *e, int el, Node *np, Node *en)
     cout<<"total cost: "<<endNode->getWeight();
 }
 
+/**
+*dijkstra function
+*1. pushes all nodes to prioritylist
+*2. for each of the node in prioritylist, get the appropriate next node to traverse to
+*3. loop till next node is end node
+*/
 string Algorithm::dijkstra(){
     Node *currentNode = nought;
     for(int i=0; i<nodelength; i++){
@@ -26,23 +41,27 @@ string Algorithm::dijkstra(){
     }
 
     do{
-        cout<<"new round\nnew currentNode is: "<<endl;
-        currentNode->printDetails();
-        printPriorityList();
-
         list<Edge> incidentEdges = getAvailableEdges(currentNode);
         currentNode = updateAdjacentNodes(currentNode, incidentEdges);
 
     }while(!currentNode->is(*endNode));
+
     printNodes();
     return getSolution();
 }
 
+/**
+*updateAdjacentNodes function
+*@param *currentNode,   pointer to currently traversed node
+*@param edges,          list of all edges of currentNode
+*@return next appropriate node
+*/
 Node* Algorithm::updateAdjacentNodes(Node *currentNode, list<Edge> edges){
-    cout<<"Available nodes"<<endl;
-
     list<Edge>::iterator e;
     for(e=edges.begin(); e!=edges.end(); e++){
+
+        //for each potential next node, get the potential new weight
+        //and compare with current weight
         Node *adjacentNode = (*e).getAN(*currentNode);
         int newWeight = currentNode->getWeight()+(*e).getWeight();
 
@@ -51,36 +70,40 @@ Node* Algorithm::updateAdjacentNodes(Node *currentNode, list<Edge> edges){
             adjacentNode->setUpdatedBy(*currentNode);
             adjacentNode->setVisited();
             replaceUnique(&priorityList, *adjacentNode);
-
-            cout<<"new adjacentNode"<<endl;
-            adjacentNode->printDetails();
         }
     }
 
+    //sorts priority list
     priorityList.sort([](Node &n1, Node &n2){
         if(!(n1.getWeight() > n2.getWeight())){
             return n1.getWeight() < n2.getWeight();
         }
     });
 
+    //pops currently traversed node
     priorityList.pop_front();
 
     return &(priorityList.front());
 }
 
+/**
+*getSolution function
+*this is needed because i couldn't find way to store
+*a node's owner(the node that modified this node) as type Node,
+*hence I'm only able to store it as its name, type char
+*this function converts the name back to the Node of the same name
+*@return string of solution
+*/
 string Algorithm::getSolution(){
     string sol;
     Node n = *endNode;
     do{
         bool found = false;
         int i=0;
-        cout<<"sol: "<<sol<<endl;
-        cout<<"n.getName(): "<<n.getName()<<endl;
         string thisNode(1, n.getName());
         sol.append(thisNode);
         do{
             if((*(nodesp-i)).getName()==n.getUpdatedBy()){
-                cout<<(*(nodesp-i)).getName()<<" and "<<n.getUpdatedBy()<<endl;
                 n = *(nodesp-i);
                 found = true;
             }
@@ -93,6 +116,10 @@ string Algorithm::getSolution(){
     return sol;
 }
 
+/**
+*printNodes function
+*prints the node array
+*/
 void Algorithm::printNodes(){
     cout<<"All nodes:"<<endl;
     for(int i=0; i<nodelength; i++){
@@ -100,6 +127,10 @@ void Algorithm::printNodes(){
     }
 }
 
+/**
+*printPriorityList function
+*prints the priorityList
+*/
 void Algorithm::printPriorityList() {
 //look at priorityList's content
     std::list<Node>::iterator n;
@@ -109,38 +140,34 @@ void Algorithm::printPriorityList() {
     }
 }
 
-sortByWeight(Node *n1, Node *n2){
-    return n1->getWeight()<n2->getWeight();
-}
-
-
-
-Node* Algorithm::getPrevNode(Node currentNode){
-    char prevNodeName = currentNode.getUpdatedBy();
-    for(int i=0;i<nodelength; i++){
-        if((*(nodesp-i)).getName()==prevNodeName){
-            return &(*(nodesp-i));
-        }
-    }
-}
-
+/**
+*replaceUnique function
+*@param *uniqueList,    pointer to priorityList
+*@param n,              node to push into list
+*I wasn't able to find a way to implement a set in c++, hence used list as a substitution
+*this has its draw back as I would have to explicitly code out how the
+*pushing in, overriding etc would happen
+*/
 void Algorithm::replaceUnique(list<Node> *uniqueList, Node n){
     bool pushed = false;
 
     std::list<Node>::iterator j;
     for(j=uniqueList->begin(); j!=uniqueList->end();j++){
         if((*j).getName()==n.getName()){
-            cout<<"element not unique"<<endl;
             (*j) = n;
             pushed = true;
         }
     }
     if(!pushed){
-        cout<<"element unique"<<endl;
         uniqueList->push_back(n);
     }
 }
 
+/**
+*minWeightNode function
+*@param nodes,  adjacent nodes of a particular node
+*@return the minimum weight of all adjacent nodes
+*/
 Node Algorithm::minWeightNode(list<Node> nodes){
     Node minWeightNode = nodes.front();
     std::list<Node>::iterator j;
@@ -149,33 +176,26 @@ Node Algorithm::minWeightNode(list<Node> nodes){
             minWeightNode = (*j);
         }
     }
-    cout<<"next node, ie node with lowest potential weight is: "<<minWeightNode.getName()<<endl;
     return minWeightNode;
 }
 
-list<Edge> Algorithm::getAvailableEdges(Node *cn){
-    cout<<"Available Edges:"<<endl;
+/**
+*getAvailableEdges function
+*@param *currentNode,   currently traversed node
+*@return all incident edges of a graph
+*/
+list<Edge> Algorithm::getAvailableEdges(Node *currentNode){
 
     list<Edge> availableEdges;
     for(int i=0; i<edgelength; i++){
         Edge currentEdge = (*(edgesp-i));
 
-        if(currentEdge.getSN()->is(*cn)||currentEdge.getEN()->is(*cn)){
+        if(currentEdge.getSN()->is(*currentNode)||currentEdge.getEN()->is(*currentNode)){
             availableEdges.push_back(currentEdge);
         }
     }
-    std::list<Edge>::iterator i;
-    for(i=availableEdges.begin(); i!=availableEdges.end();i++){
-        cout<<(*i).getWeight()<<"|";
-    }
-    cout<<endl;
     return availableEdges;
 }
-
-void printPath(string tempPath){
-    cout<<"Current path:"<<tempPath<<endl;
-}
-
 
 Algorithm::~Algorithm()
 {
