@@ -33,21 +33,21 @@ int main()
     int nodeslength = sizeof(nodes)/sizeof(nodes[0]);
     Node *noughtp = &Nought;
     Node *startNodep = &A;
-    Node *endNodep = &D;
+    Node *endNodep = &I;
 
     Edge e0(0, &Nought, startNodep);
     Edge e1(4, &A, &B);
-    Edge e2 (8, &B, &C);
+    Edge e2(8, &B, &C);
     Edge e3(7, &C, &D);
     Edge e4(9, &D, &E);
     Edge e5(10, &E, &F);
     Edge e6(2, &F, &G);
     Edge e7(1, &G, &H);
-    Edge e8(8, &H, &A);
-    Edge e9(11, &H, &B);
-    Edge e10(7, &H, &I);
-    Edge e11(2, &I, &C);
-    Edge e12(6, &I, &G);
+    Edge e8(7, &H, &I);
+    Edge e9(8, &H, &A);
+    Edge e10(11, &H, &B);
+    Edge e11(6, &I, &G);
+    Edge e12(2, &I, &C);
     Edge e13(4, &C, &F);
     Edge e14(14, &D, &F);
     Edge *edges[] = {&e0, &e1, &e2, &e3, &e4, &e5, &e6, &e7, &e8, &e9, &e10, &e11, &e12, &e13, &e14};

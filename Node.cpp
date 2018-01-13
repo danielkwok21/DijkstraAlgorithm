@@ -33,7 +33,7 @@ bool Node::is(Node n){
 }
 
 void Node::printDetails(){
-    cout<<"Node:"<<name<<"|Weight:"<<weight<<"|"<<"|Visited:"<<wasVisited<<"Updated by:"<<updatedBy<<endl;
+    cout<<"Node:"<<name<<"|Weight:"<<weight<<"|Visited:"<<wasVisited<<"|Updated by:"<<updatedBy<<endl;
     //cout<<"Node:"<<name<<"|"<<"Weight:"<<weight<<"|"<<"Visited:"<<wasVisited<<endl;
 }
 

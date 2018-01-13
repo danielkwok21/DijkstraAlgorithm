@@ -41,7 +41,6 @@ class Algorithm
         Edge *edgesp;
         Node *nought;
         Node *endNode;
-        bool visited;
 };
 
 #endif // ALGORITHM_H

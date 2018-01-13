@@ -20,25 +20,52 @@ Algorithm::Algorithm(Node *n, int nl, Edge *e, int el, Node *np, Node *en)
 }
 
 string Algorithm::dijkstra(){
-    string path="";
     Node *currentNode = nought;
-    list<Edge> incidentEdges;
-    priorityList.push_front(*currentNode);
+    for(int i=0; i<nodelength; i++){
+        priorityList.push_back(*(nodesp-i));
+    }
 
     do{
-
-        cout<<"\n\n\nnew round"<<endl;
-        cout<<"current Node for this round is:"<<endl;
+        cout<<"new round\nnew currentNode is: "<<endl;
         currentNode->printDetails();
+        printPriorityList();
 
-        incidentEdges = getAvailableEdges(currentNode);
+        list<Edge> incidentEdges = getAvailableEdges(currentNode);
         currentNode = updateAdjacentNodes(currentNode, incidentEdges);
 
-        printNodes();
-
-    }while(!priorityList.empty());
-
+    }while(!currentNode->is(*endNode));
+    printNodes();
     return getSolution();
+}
+
+Node* Algorithm::updateAdjacentNodes(Node *currentNode, list<Edge> edges){
+    cout<<"Available nodes"<<endl;
+
+    list<Edge>::iterator e;
+    for(e=edges.begin(); e!=edges.end(); e++){
+        Node *adjacentNode = (*e).getAN(*currentNode);
+        int newWeight = currentNode->getWeight()+(*e).getWeight();
+
+        if(newWeight<adjacentNode->getWeight()){
+            adjacentNode->setWeight(newWeight);
+            adjacentNode->setUpdatedBy(*currentNode);
+            adjacentNode->setVisited();
+            replaceUnique(&priorityList, *adjacentNode);
+
+            cout<<"new adjacentNode"<<endl;
+            adjacentNode->printDetails();
+        }
+    }
+
+    priorityList.sort([](Node &n1, Node &n2){
+        if(!(n1.getWeight() > n2.getWeight())){
+            return n1.getWeight() < n2.getWeight();
+        }
+    });
+
+    priorityList.pop_front();
+
+    return &(priorityList.front());
 }
 
 string Algorithm::getSolution(){
@@ -81,65 +108,12 @@ void Algorithm::printPriorityList() {
         (*n).printDetails();
     }
 }
-/*
-void Algorithm::printPotentialNodes() {
-//look at potentialNodes's content
-    std::list<Node>::iterator n;
-    cout<<"potential nodes:"<<endl;
-    for(n=potentialNodes.begin(); n!=potentialNodes.end(); n++){
-        (*n).printDetails();
-    }
-}
-*/
 
 sortByWeight(Node *n1, Node *n2){
     return n1->getWeight()<n2->getWeight();
 }
-Node* Algorithm::updateAdjacentNodes(Node *currentNode, list<Edge> edges){
-    cout<<"Available nodes"<<endl;
-    list<Node> potentialNodes;
-    bool updates = false;
-    Node *nextNode;
-    list<Edge>::iterator e;
-    for(e=edges.begin(); e!=edges.end(); e++){
-        Node *adjacentNode = (*e).getAN(*currentNode);
-        int newWeight = currentNode->getWeight()+(*e).getWeight();
 
-        if(newWeight<adjacentNode->getWeight()){
-            cout<<adjacentNode->getName()<<"|";
-            updates = true;
-            adjacentNode->setWeight(newWeight);
-            adjacentNode->setUpdatedBy(*currentNode);
-            adjacentNode->setVisited();
-            replaceUnique(&priorityList, *adjacentNode);
 
-            cout<<"new adjacentNode"<<endl;
-            adjacentNode->printDetails();
-        }
-    }
-    priorityList.sort([](Node &n1, Node &n2){
-        if(!(n1.getWeight() > n2.getWeight())){
-            return n1.getWeight() < n2.getWeight();
-        }
-    });
-
-    cout<<"pre pop"<<endl;
-    printPriorityList();
-
-    priorityList.pop_front();
-
-    cout<<"post pop"<<endl;
-    printPriorityList();
-
-    if(!updates){
-        cout<<"No updates"<<endl;
-        nextNode = getPrevNode(*currentNode);
-        cout<<"prev node was: "<<nextNode->getName()<<endl;
-        return nextNode;
-    }
-
-    return &priorityList.front();
-}
 
 Node* Algorithm::getPrevNode(Node currentNode){
     char prevNodeName = currentNode.getUpdatedBy();
