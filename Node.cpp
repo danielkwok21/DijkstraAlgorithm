@@ -10,7 +10,13 @@ Node::Node(char n)
 
 }
 
-char Node::getName(){
+Node::Node(char n, int w, char u)
+:name(n), weight(w), updatedBy(u)
+{
+
+}
+
+char Node::getName() const{
     return name;
 }
 
@@ -29,7 +35,6 @@ bool Node::is(Node n){
 void Node::printDetails(){
     cout<<"Node:"<<name<<"|Weight:"<<weight<<"|"<<"|Visited:"<<wasVisited<<"Updated by:"<<updatedBy<<endl;
     //cout<<"Node:"<<name<<"|"<<"Weight:"<<weight<<"|"<<"Visited:"<<wasVisited<<endl;
-
 }
 
 bool Node::visited(){
@@ -43,9 +48,11 @@ void Node::setVisited(){
 char Node::getUpdatedBy(){
     return updatedBy;
 }
+
 void Node::setUpdatedBy(Node n){
     updatedBy = n.getName();
 }
+
 
 Node::~Node()
 {
